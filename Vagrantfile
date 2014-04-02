@@ -1,44 +1,41 @@
 # Author: Andrea Tosatto <andrea.tosy@gmail.com>
 
-Vagrant.require_plugin('vagrant-hostsupdater')
-Vagrant.require_plugin('vagrant-vbguest')
+### Require plugins
+require 'vagrant-hostsupdater'
+require 'vagrant-vbguest'
 
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "centos-64-x64-puppet"
-  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box"
+    config.vm.box = 'puppetlabs/centos-6.5-x86_64-puppet'
+    config.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-puppet.box'
 
-  config.vm.network :forwarded_port, guest: 5858, host: 5858  #remote NodeJS debug
+    ### VM Specs customization
+    config.vm.provider :virtualbox do |vb|
+        vb.name = "Vagrant NodeJs"
+        vb.customize ["modifyvm", :id, "--memory", "2048"]
+    end
 
-  config.vm.hostname = "node.vagrant.dev"
+    ### NFS shared folder | Require nfs-utils  
+    config.vm.synced_folder "workspace", "/home/vagrant/workspace", :nfs => true
 
-  ### VM Specs customization
-  config.vm.provider :virtualbox do |vb|
-    vb.name = "Vagrant NodeHs"
-    vb.customize ["modifyvm", :id, "--memory", "2048"]
-  end
+    ### Puppet configuration
+    config.vm.define :vagrant_node do |project|
 
-  config.hostsupdater.aliases = ["api.palermobybus.dev"]
-  # autoupdate vbox guests
-  config.vbguest.auto_update = true
+        project.vm.hostname = "node.vagrant.dev"
+        project.vm.network :private_network, ip: "33.33.33.30"
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  config.vm.network :private_network, ip: "33.33.33.30"
+        # VM hostname aliases | Require vagrant-hostsupdater (https://github.com/cogitatio/vagrant-hostsupdater)
+        project.hostsupdater.aliases = ["api.palermobybus.dev"]
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+        ### Pass installation procedure over to Puppet (see `manifests/vagrant_node.pp`)
+        project.vm.provision :puppet do |puppet|
+            puppet.manifests_path = "manifests"
+            puppet.module_path = "modules"
+            puppet.manifest_file = "vagrant_node.pp"
+            puppet.options = [
+                '--verbose',
+            ]
+        end
 
-  config.vm.provision :puppet do |puppet|
-    puppet.manifests_path = "manifests"
-    puppet.module_path = "puppet-modules"
-    puppet.manifest_file = "vagrant_node.pp"
-    puppet.options = [
-        '--verbose',
-    ]
-  end
-
+    end
 end

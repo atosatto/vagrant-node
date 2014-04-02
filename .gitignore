@@ -1,4 +1,12 @@
+# IntelliJIdea
 .idea
+
+# MacOSX
 .DS_Store
 
+# Vagrant & Puppet
 .vagrant
+.librarian/
+.tmp/
+modules/
+workspace/
