@@ -1,9 +1,0 @@
-[submodule "puppet-modules/nodejs"]
-	path = puppet-modules/nodejs
-	url = https://github.com/example42/puppet-nodejs
-[submodule "puppet-modules/mongodb"]
-	path = puppet-modules/mongodb
-	url = https://github.com/example42/puppet-mongodb
-[submodule "puppet-modules/yum"]
-	path = puppet-modules/yum
-	url = https://github.com/example42/puppet-yum
