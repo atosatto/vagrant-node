@@ -2,7 +2,6 @@
 
 ### Require plugins
 require 'vagrant-hostsupdater'
-require 'vagrant-vbguest'
 
 Vagrant.configure(2) do |config|
 
@@ -11,7 +10,7 @@ Vagrant.configure(2) do |config|
 
     ### VM Specs customization
     config.vm.provider :virtualbox do |vb|
-        vb.name = "Vagrant NodeJs"
+        vb.name = "Vagrant Node"
         vb.customize ["modifyvm", :id, "--memory", "2048"]
     end
 
