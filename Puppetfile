@@ -3,8 +3,7 @@
 
 forge "http://forge.puppetlabs.com"
 
-mod 'example42/mongodb'
-mod 'example42/yum'
+mod 'puppetlabs/mongodb'
 mod 'willdurand/nodejs'
 
 # mod 'ntp',

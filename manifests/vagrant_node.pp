@@ -1,11 +1,16 @@
+#
+# Authors: Andrea Tosatto <andrea.tosy@gmail.com>
+
 Exec {
     path => ['/usr/local/bin/:/bin/:/usr/bin/'],
 }
 
 ### Mongodb
-class { 'mongodb':
-    use_10gen => true,
-}
+class {'::mongodb::globals':
+  manage_package_repo => true,
+}->
+class {'::mongodb::server': }->
+class {'::mongodb::client': }
 
 ## NodeJS
 class { 'nodejs':

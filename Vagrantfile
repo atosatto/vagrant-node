@@ -3,7 +3,7 @@
 ### Require plugins
 require 'vagrant-hostsupdater'
 
-Vagrant.configure(2) do |config|
+Vagrant.configure("2") do |config|
 
     config.vm.box = 'puppetlabs/centos-6.5-x86_64-puppet'
     config.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-puppet.box'

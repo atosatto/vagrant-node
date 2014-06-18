@@ -1,19 +1,18 @@
 FORGE
-  remote: http://forge.puppetlabs.com
+  remote: https://forgeapi.puppetlabs.com
   specs:
-    example42/mongodb (2.0.14)
-      example42/puppi (>= 2.0.0)
-    example42/puppi (2.1.9)
-    example42/yum (2.1.10)
-      example42/puppi (>= 2.0.0)
-    maestrodev/wget (1.4.1)
-    puppetlabs/stdlib (4.1.0)
-    willdurand/nodejs (1.6.2)
-      maestrodev/wget (>= 0.0.0)
-      puppetlabs/stdlib (>= 0.0.0)
+    maestrodev/wget (1.4.3)
+    puppetlabs/apt (1.5.0)
+      puppetlabs/stdlib (>= 2.2.1)
+    puppetlabs/mongodb (0.8.0)
+      puppetlabs/apt (>= 1.0.0)
+      puppetlabs/stdlib (>= 2.2.0)
+    puppetlabs/stdlib (4.2.2)
+    willdurand/nodejs (1.6.4)
+      maestrodev/wget (>= 0)
+      puppetlabs/stdlib (>= 0)
 
 DEPENDENCIES
-  example42/mongodb (>= 0)
-  example42/yum (>= 0)
+  puppetlabs/mongodb (>= 0)
   willdurand/nodejs (>= 0)
 
